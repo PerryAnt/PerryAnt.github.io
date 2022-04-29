@@ -28,6 +28,10 @@ function onSavePaste(event) {
 	
 }
 
+function log10(val) {
+  return Math.log(val) / Math.LN10;
+}
+
 function createHeirloom(zone, fromBones, spireCore, forceBest){
 	var slots = game.heirlooms.slots;
 	var rarityNames = game.heirlooms.rarityNames;
