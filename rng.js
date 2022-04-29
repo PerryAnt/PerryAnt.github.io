@@ -1,6 +1,9 @@
 var save;
 var game = newGame();
 
+// only thing from spire assault that gets used
+var autoBattle = {oneTimers: {Nullicious: {owned: false}}}
+
 // Input for save
 document.getElementById("saveInput").addEventListener("paste", (event) => {
 	onSavePaste(event);
@@ -24,7 +27,7 @@ function onSavePaste(event) {
 	game.global.fluffyExp = save.fluffyExp
 	Fluffy.calculateLevel();
 	
-	let autoBattle = {oneTimers: {Nullicious: {owned: false}}}
+	
 	
 }
 
