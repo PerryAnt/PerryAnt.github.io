@@ -20,7 +20,7 @@
 		<http://www.gnu.org/licenses/>. */
 
 //Spoilers ahead, proceed with caution
-export var newGame =( function newGame () {
+export function newGame () {
 var toReturn = {
 	global: {
 		//New and accurate version
