@@ -1,3 +1,5 @@
+import { LZString } from "./lz-string.js";
+
 var save
 
 // Input for save
