@@ -1,4 +1,5 @@
 import { LZString } from "./lz-string.js";
+import { newGame } from "./config.js";
 
 // Input for save
 document.getElementById("saveInput").addEventListener("paste", (event) => {
