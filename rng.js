@@ -7,6 +7,6 @@ document.getElementById("saveInput").addEventListener("paste", (event) => {
 
 function onSavePaste(event) {
 	let paste = event.clipboardData.getData("text");
-	save = JSON.parse(decompressFromBase64(paste));
+	save = JSON.parse(LZString.decompressFromBase64(paste));
 }
 
