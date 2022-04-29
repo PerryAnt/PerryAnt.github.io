@@ -7,7 +7,7 @@
 // http://pieroxy.net/blog/pages/lz-string/testing.html
 //
 // LZ-based compression algorithm, version 1.5 beta
-export var LZString = (function() {
+var LZString = (function() {
 
 // private property
 var f = String.fromCharCode;
