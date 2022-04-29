@@ -1,4 +1,5 @@
-game = newGame();
+var save;
+var game = newGame();
 
 // Input for save
 document.getElementById("saveInput").addEventListener("paste", (event) => {
