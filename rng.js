@@ -24,6 +24,8 @@ function onSavePaste(event) {
 	game.global.fluffyExp = save.fluffyExp
 	Fluffy.calculateLevel();
 	
+	let autoBattle = {oneTimers: {Nullicious: {owned: false}}}
+	
 }
 
 function createHeirloom(zone, fromBones, spireCore, forceBest){
