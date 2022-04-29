@@ -1,7 +1,3 @@
-import { LZString } from "./lz-string.js";
-import { newGame } from "./config.js";
-
-
 game = newGame();
 
 // Input for save
