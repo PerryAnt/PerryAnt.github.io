@@ -1,7 +1,5 @@
 import { LZString } from "./lz-string.js";
 
-let save
-
 // Input for save
 document.getElementById("saveInput").addEventListener("paste", (event) => {
 	onSavePaste(event);
