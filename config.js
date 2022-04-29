@@ -12626,5 +12626,5 @@ var toReturn = {
 };
 return toReturn;
 }
-)
+
 // var game = newGame()
