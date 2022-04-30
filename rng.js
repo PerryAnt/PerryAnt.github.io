@@ -65,11 +65,9 @@ function searchForHeirloom(low, high){
 function findNextHeirloom(zone, rarity){
 	let heirloom;
 	for (let i = 0; i < 100; i++) {
-		while(true){
-			createHeirloom(zone);
-			heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
-			if (heirloom.rarity == rarity) return heirloom;	
-		}
+		createHeirloom(zone);
+		heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
+		if (heirloom.rarity == rarity) return heirloom;	
 	}
 }
 
