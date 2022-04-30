@@ -27,6 +27,7 @@ function onSavePaste(event) {
 	// set fluffy
 	game.global.fluffyPrestige = save.global.fluffyPrestige
 	game.global.fluffyExp = save.fluffyExp
+	game.portal.Capable.level = save.portal.Capable.level
 	Fluffy.calculateLevel();
 	
 	// prevents some code that won't work from running
