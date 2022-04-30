@@ -106,7 +106,7 @@ function nextFiveHeirlooms(event){
 			createHeirloom(zone);
 			heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
 			if (heirloom.rarity == rarity){
-				document.getElementById('heirloom'+i).innerText = count " ahead" + "\n" + heirloomToString(heirloom);
+				document.getElementById('heirloom'+i).innerText = count + " ahead" + "\n" + heirloomToString(heirloom);
 				break;
 			}
 		}
