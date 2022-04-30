@@ -49,6 +49,7 @@ function heirloomToString(heirloom){
 	for (const mod in heirloom.mods){
 		string += mod[0] + "\n"	
 	}
+	return string
 }
 
 //createHeirloom calls these but I don't want them to do anything
