@@ -19,7 +19,7 @@ document.getElementById("heirloomSearchButton").addEventListener("click", (event
 });
 
 
-document.getElementById("NextFiveButton").addEventListener("click", (event) => {
+document.getElementById("nextFiveButton").addEventListener("click", (event) => {
 	nextFiveHeirlooms(event);
 });
 
