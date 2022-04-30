@@ -51,12 +51,22 @@ function heirloomToString(heirloom){
 	return text
 }
 
-function findNextHeirloom(low, high, rarity){
-	game.global.heirloomSeed = save.global.heirloomSeed;
+function searchForHeirloom(low, high){
+	let rarity = getHeirloomRarityRanges(zone).length-1
+	let heirloom
+	
+	for (let i = 0; i < 5; i++) {
+		game.global.heirloomSeed = save.global.heirloomSeed;
+		for (let j = 0; j < i; j++) console.log(i,j)
+		heirloom = findNextHeirloom(rarity)
+	}
+}
+
+function findNextHeirloom(zone, rarity){
 	let heirloom;
 	for (let i = 0; i < 100; i++) {
 		while(true){
-			createHeirloom(high);
+			createHeirloom(zone);
 			heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
 			if (heirloom.rarity == rarity) return heirloom;	
 		}
