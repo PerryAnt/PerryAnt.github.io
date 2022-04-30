@@ -40,7 +40,15 @@ function onSavePaste(event) {
 	// prevents some code that won't work from running
 	game.stats.totalHeirlooms.value = 1
 	createHeirloom(200);
-	document.getElementById('heirloom').innerText = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1].mods[0]
+	document.getElementById('heirloom').innerText = heirloomToString(game.global.heirloomsExtra[game.global.heirloomsExtra.length-1])
+}
+
+function heirloomToString(heirloom){
+	let string = ""
+	string += heirloom.name + "\n"
+	for mod in heirloom.mods{
+		string += mod[0] + "\n"	
+	}
 }
 
 //createHeirloom calls these but I don't want them to do anything
