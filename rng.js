@@ -40,7 +40,7 @@ function onSavePaste(event) {
 	// prevents some code that won't work from running
 	game.stats.totalHeirlooms.value = 1
 	createHeirloom(200);
-	console.log(game.global.heirloomsExtra[game.global.heirloomsExtra.length-1])
+	document.getElementById('heirloom').innerText = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1]
 }
 
 //createHeirloom calls these but I don't want them to do anything
