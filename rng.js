@@ -102,7 +102,7 @@ function nextFiveHeirlooms(event){
 	let count = 0;
 	
 	for (let i = 0; i < 5; i++) {
-		for (let i = 0; i < 100; i++) {
+		for (let j = 0; j < 100; i++) {
 			count++;
 			createHeirloom(high);
 			heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
