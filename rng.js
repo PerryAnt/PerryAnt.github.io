@@ -31,7 +31,7 @@ function onSavePaste(event) {
 	
 	// prevents some code that won't work from running
 	game.stats.totalHeirlooms.value = 1
-	
+	createHeirloom(200);
 }
 
 //createHeirloom calls this but I don't want it to do anything
