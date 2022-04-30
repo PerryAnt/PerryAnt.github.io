@@ -37,8 +37,9 @@ function onSavePaste(event) {
 	createHeirloom(200);
 }
 
-//createHeirloom calls this but I don't want it to do anything
+//createHeirloom calls these but I don't want them to do anything
 function displaySelectedHeirloom(modSelected, selectedIndex, fromTooltip, locationOvr, indexOvr, fromPopup, fromSelect){return}
+function checkAchieve(id, evalProperty, doubleChecking, noDisplay) {return}
 
 function log10(val) {
   return Math.log(val) / Math.LN10;
