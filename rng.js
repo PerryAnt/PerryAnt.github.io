@@ -4,10 +4,17 @@ var game = newGame();
 // only thing from spire assault that gets used
 var autoBattle = {oneTimers: {Nullicious: {owned: false}}}
 
-//
+// flag that createHeirloom checks
 var heirloomsShown = false;
+
+
 // Input for save
 document.getElementById("saveInput").addEventListener("paste", (event) => {
+	onSavePaste(event);
+});
+
+
+document.getElementById("heirloomSearchButton").addEventListener("click", (event) => {
 	onSavePaste(event);
 });
 
@@ -44,24 +51,27 @@ function onSavePaste(event) {
 	//document.getElementById('heirloom').innerText = heirloomToString(game.global.heirloomsExtra[game.global.heirloomsExtra.length-1])
 }
 
+function searchForHeirloom(event){
+	let low = parseInt(document.getElementById("lowZoneText").value);
+	let high = parseInt(document.getElementById("highZoneText").value);
+	let rarity = getHeirloomRarityRanges(high).length-1;
+	let heirloom;
+	
+	for (let i = 0; i < 5; i++) {
+		game.global.heirloomSeed = save.global.heirloomSeed;
+		for (let j = 0; j < i; j++) createHeirloom(low);
+		heirloom = findNextHeirloom(high, rarity);
+		
+		document.getElementById('heirloom'+i).innerText = heirloomToString(heirloom);
+	}
+}
+
+
 function heirloomToString(heirloom){
 	let text = ""
 	text += heirloom.name + "\n"
 	for (let i = 0; i < heirloom.mods.length; i++) text += heirloom.mods[i][0] + "\n"	
 	return text
-}
-
-function searchForHeirloom(low, high){
-	let rarity = getHeirloomRarityRanges(high).length-1
-	let heirloom
-	
-	for (let i = 0; i < 5; i++) {
-		game.global.heirloomSeed = save.global.heirloomSeed;
-		for (let j = 0; j < i; j++) createHeirloom(low)
-		heirloom = findNextHeirloom(high, rarity)
-		
-		document.getElementById('heirloom'+i).innerText = heirloomToString(heirloom)
-	}
 }
 
 function findNextHeirloom(zone, rarity){
