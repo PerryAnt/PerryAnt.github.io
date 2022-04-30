@@ -46,7 +46,7 @@ function onSavePaste(event) {
 function heirloomToString(heirloom){
 	let text = ""
 	text += heirloom.name + "\n"
-	for (let i = 0; i < heirloom.mods.length; i++) text += "\t" + heirloom.mods[i][0] + "\n"	
+	for (let i = 0; i < heirloom.mods.length; i++) text += "&emsp;" + heirloom.mods[i][0] + "\n"	
 	return text
 }
 
