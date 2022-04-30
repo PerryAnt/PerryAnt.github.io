@@ -85,6 +85,15 @@ function findNextHeirloom(zone, rarity){
 	}
 }
 
+function nextFiveHeirlooms(zone){
+	let heirloom;
+	for (let i = 0; i < 5; i++) {
+		createHeirloom(zone);
+		heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
+		document.getElementById('heirloom'+i).innerText = heirloomToString(heirloom);
+	}
+}
+
 //createHeirloom calls these but I don't want them to do anything
 function displaySelectedHeirloom(modSelected, selectedIndex, fromTooltip, locationOvr, indexOvr, fromPopup, fromSelect){return}
 function checkAchieve(id, evalProperty, doubleChecking, noDisplay) {return}
