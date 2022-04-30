@@ -44,11 +44,13 @@ function onSavePaste(event) {
 	game.portal.Capable.level = save.portal.Capable.level
 	Fluffy.calculateLevel();
 	
+	
+	// heirlooms can't have crit unless relentlessness is unlocked
+	game.portal.Relentlessness.locked = save.portal.Relentlessness.locked;
+	
 	// prevents some code that won't work from running
 	game.stats.totalHeirlooms.value = 1
 	
-	//createHeirloom(200);
-	//document.getElementById('heirloom').innerText = heirloomToString(game.global.heirloomsExtra[game.global.heirloomsExtra.length-1])
 }
 
 function searchForHeirloom(event){
