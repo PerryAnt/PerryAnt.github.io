@@ -15,7 +15,7 @@ document.getElementById("saveInput").addEventListener("paste", (event) => {
 
 
 document.getElementById("heirloomSearchButton").addEventListener("click", (event) => {
-	onSavePaste(event);
+	searchForHeirloom(event);
 });
 
 function onSavePaste(event) {
