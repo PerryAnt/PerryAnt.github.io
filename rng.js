@@ -31,6 +31,9 @@ function onSavePaste(event) {
 	
 }
 
+//createHeirloom calls this but I don't want it to do anything
+function displaySelectedHeirloom(modSelected, selectedIndex, fromTooltip, locationOvr, indexOvr, fromPopup, fromSelect){return}
+
 function log10(val) {
   return Math.log(val) / Math.LN10;
 }
