@@ -46,7 +46,7 @@ function onSavePaste(event) {
 function heirloomToString(heirloom){
 	let string = ""
 	string += heirloom.name + "\n"
-	for (const mod in heirloom.mods){
+	for (let mod in heirloom.mods){
 		string += mod[0] + "\n"	
 	}
 	return string
