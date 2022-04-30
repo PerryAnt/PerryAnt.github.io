@@ -44,12 +44,13 @@ function onSavePaste(event) {
 }
 
 function heirloomToString(heirloom){
-	let string = ""
+	let text = ""
 	string += heirloom.name + "\n"
 	for (let mod in heirloom.mods){
 		string += mod[0] + "\n"	
 	}
-	return string
+	for (let i = 0; i < heirloom.mods.length; i++) string += heirloom.mods[i][0] + "\n"	
+	return text
 }
 
 //createHeirloom calls these but I don't want them to do anything
