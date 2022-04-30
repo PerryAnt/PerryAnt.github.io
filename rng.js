@@ -39,8 +39,9 @@ function onSavePaste(event) {
 	
 	// prevents some code that won't work from running
 	game.stats.totalHeirlooms.value = 1
-	createHeirloom(200);
-	document.getElementById('heirloom').innerText = heirloomToString(game.global.heirloomsExtra[game.global.heirloomsExtra.length-1])
+	
+	//createHeirloom(200);
+	//document.getElementById('heirloom').innerText = heirloomToString(game.global.heirloomsExtra[game.global.heirloomsExtra.length-1])
 }
 
 function heirloomToString(heirloom){
@@ -48,6 +49,18 @@ function heirloomToString(heirloom){
 	text += heirloom.name + "\n"
 	for (let i = 0; i < heirloom.mods.length; i++) text += heirloom.mods[i][0] + "\n"	
 	return text
+}
+
+function findNextHeirloom(low, high, rarity){
+	game.global.heirloomSeed = save.global.heirloomSeed;
+	let heirloom;
+	for (let i = 0; i < 100; i++) {
+		while(true){
+			createHeirloom(high);
+			heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
+			if (heirloom.rarity == rarity) return heirloom;	
+		}
+	}
 }
 
 //createHeirloom calls these but I don't want them to do anything
