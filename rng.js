@@ -13,6 +13,8 @@ function onSavePaste(event) {
 	let paste = event.clipboardData.getData("text");
 	save = JSON.parse(LZString.decompressFromBase64(paste));
 	
+	
+	game.global.universe = save.global.universe
 	game.global.heirloomBoneSeed = save.global.heirloomBoneSeed;
 	game.global.heirloomSeed = save.global.heirloomSeed;
 	game.global.bestHeirloomSeed = save.global.bestHeirloomSeed;
@@ -41,6 +43,21 @@ function displaySelectedHeirloom(modSelected, selectedIndex, fromTooltip, locati
 function log10(val) {
   return Math.log(val) / Math.LN10;
 }
+
+function getPerkLevel(what, usePortalUniverse){
+	var portUpgrade = game.portal[what];
+	var universe = (usePortalUniverse) ? portalUniverse : game.global.universe;
+	if (universe == 1) {
+		if (typeof portUpgrade.level !== 'undefined') return portUpgrade.level;
+		return 0;
+	}
+	if (universe == 2){
+		if (typeof portUpgrade.radLevel !== 'undefined') return portUpgrade.radLevel;
+		return 0;
+	}
+	return 0;
+}
+
 
 function createHeirloom(zone, fromBones, spireCore, forceBest){
 	var slots = game.heirlooms.slots;
