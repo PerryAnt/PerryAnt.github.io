@@ -52,7 +52,7 @@ function heirloomToString(heirloom){
 }
 
 function searchForHeirloom(low, high){
-	let rarity = getHeirloomRarityRanges(zone).length-1
+	let rarity = getHeirloomRarityRanges(high).length-1
 	let heirloom
 	
 	for (let i = 0; i < 5; i++) {
