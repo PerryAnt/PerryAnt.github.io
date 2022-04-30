@@ -59,6 +59,8 @@ function searchForHeirloom(low, high){
 		game.global.heirloomSeed = save.global.heirloomSeed;
 		for (let j = 0; j < i; j++) createHeirloom(low)
 		heirloom = findNextHeirloom(high, rarity)
+		
+		document.getElementById('heirloom'+i).innerText = heirloomToString(heirloom)
 	}
 }
 
@@ -68,7 +70,6 @@ function findNextHeirloom(zone, rarity){
 		createHeirloom(zone);
 		heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
 		if (heirloom.rarity == rarity) {
-			console.log(heirloom)
 			return heirloom;	
 		}
 	}
