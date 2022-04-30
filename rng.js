@@ -18,6 +18,12 @@ document.getElementById("heirloomSearchButton").addEventListener("click", (event
 	searchForHeirloom(event);
 });
 
+
+document.getElementById("NextFiveButton").addEventListener("click", (event) => {
+	nextFiveHeirlooms(event);
+});
+
+
 function onSavePaste(event) {
 	let paste = event.clipboardData.getData("text");
 	save = JSON.parse(LZString.decompressFromBase64(paste));
@@ -87,12 +93,23 @@ function findNextHeirloom(zone, rarity){
 	}
 }
 
-function nextFiveHeirlooms(zone){
+function nextFiveHeirlooms(event){
+	let zone = parseInt(document.getElementById("highZoneText").value);
 	let heirloom;
+	game.global.heirloomSeed = save.global.heirloomSeed;
+	
+	let count = 0;
+	
 	for (let i = 0; i < 5; i++) {
-		createHeirloom(zone);
-		heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
-		document.getElementById('heirloom'+i).innerText = heirloomToString(heirloom);
+		for (let i = 0; i < 100; i++) {
+			count++;
+			createHeirloom(zone);
+			heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
+			if (heirloom.rarity == rarity){
+				document.getElementById('heirloom'+i).innerText = count " ahead" + "\n" + heirloomToString(heirloom);
+				break;
+			}
+		}
 	}
 }
 
