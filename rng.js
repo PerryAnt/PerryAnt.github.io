@@ -15,6 +15,8 @@ function onSavePaste(event) {
 	
 	
 	
+	
+	
 	// resources to not be zero to get correct resource for quest
 	game.resources.food = 1;
 	game.resources.wood = 1;
@@ -27,7 +29,8 @@ function onSavePaste(event) {
 	game.global.fluffyExp = save.fluffyExp
 	Fluffy.calculateLevel();
 	
-	
+	// prevents some code that won't work from running
+	game.stats.totalHeirlooms.value = 1
 	
 }
 
