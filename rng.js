@@ -13,9 +13,9 @@ function onSavePaste(event) {
 	let paste = event.clipboardData.getData("text");
 	save = JSON.parse(LZString.decompressFromBase64(paste));
 	
-	
-	
-	
+	game.global.heirloomBoneSeed = save.global.heirloomBoneSeed;
+	game.global.heirloomSeed = save.global.heirloomSeed;
+	game.global.bestHeirloomSeed = save.global.bestHeirloomSeed;
 	
 	// resources to not be zero to get correct resource for quest
 	game.resources.food = 1;
