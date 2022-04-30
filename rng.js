@@ -94,7 +94,8 @@ function findNextHeirloom(zone, rarity){
 }
 
 function nextFiveHeirlooms(event){
-	let zone = parseInt(document.getElementById("highZoneText").value);
+	let high = parseInt(document.getElementById("highZoneText").value);
+	let rarity = getHeirloomRarityRanges(high).length-1;
 	let heirloom;
 	game.global.heirloomSeed = save.global.heirloomSeed;
 	
@@ -103,7 +104,7 @@ function nextFiveHeirlooms(event){
 	for (let i = 0; i < 5; i++) {
 		for (let i = 0; i < 100; i++) {
 			count++;
-			createHeirloom(zone);
+			createHeirloom(high);
 			heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
 			if (heirloom.rarity == rarity){
 				document.getElementById('heirloom'+i).innerText = count + " ahead" + "\n" + heirloomToString(heirloom);
