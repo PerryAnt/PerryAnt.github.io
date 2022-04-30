@@ -4,6 +4,8 @@ var game = newGame();
 // only thing from spire assault that gets used
 var autoBattle = {oneTimers: {Nullicious: {owned: false}}}
 
+//
+var heirloomsShown = false;
 // Input for save
 document.getElementById("saveInput").addEventListener("paste", (event) => {
 	onSavePaste(event);
@@ -15,9 +17,12 @@ function onSavePaste(event) {
 	
 	
 	game.global.universe = save.global.universe
+	
+	// set seeds
 	game.global.heirloomBoneSeed = save.global.heirloomBoneSeed;
 	game.global.heirloomSeed = save.global.heirloomSeed;
 	game.global.bestHeirloomSeed = save.global.bestHeirloomSeed;
+	game.global.coreSeed = save.global.coreSeed;
 	
 	// resources to not be zero to get correct resource for quest
 	game.resources.food = 1;
