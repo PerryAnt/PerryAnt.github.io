@@ -116,8 +116,8 @@ function findNextHeirloom(zone, rarity){
 	for (let i = 0; i < 100; i++) {
 		createHeirloom(zone);
 		heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
-		heirloom.ahead = i+1;
 		if (heirloom.rarity == rarity) {
+			heirloom.ahead = i+1;
 			return heirloom;	
 		}
 	}
