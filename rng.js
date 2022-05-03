@@ -93,7 +93,7 @@ function searchForHeirloom(event){
 		
 		game.global.universe = highUniverse;
 		heirloom = findNextHeirloom(high, rarity);
-		document.getElementById('heirloom'+i).innerText = "Low: " + i + " High: " + heirloom.ahead + heirloomToString(heirloom);
+		document.getElementById('heirloom'+i).innerText = "Low: " + i + " High: " + heirloom.ahead + "\n" + heirloomToString(heirloom);
 		
 		game.global.heirloomSeed = tempSeed
 		game.global.universe = lowUniverse;
