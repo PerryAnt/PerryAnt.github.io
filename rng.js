@@ -33,6 +33,7 @@ function onSavePaste(event) {
 	
 	
 	game.global.universe = save.global.universe
+	//checked="checked"
 	
 	// set seeds
 	game.global.heirloomBoneSeed = save.global.heirloomBoneSeed;
@@ -108,8 +109,6 @@ function nextFiveHeirlooms(event, high){
 		createHeirloom(high);
 		heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
 		document.getElementById('heirloom'+i).innerText = count + " ahead" + "\n" + heirloomToString(heirloom);
-
-		}
 	}
 }
 
