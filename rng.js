@@ -19,10 +19,13 @@ document.getElementById("heirloomSearchButton").addEventListener("click", (event
 });
 
 
-document.getElementById("nextFiveButton").addEventListener("click", (event) => {
-	nextFiveHeirlooms(event);
+document.getElementById("lowNextFiveButton").addEventListener("click", (event) => {
+	nextFiveHeirlooms(event,0);
 });
 
+document.getElementById("highNextFiveButton").addEventListener("click", (event) => {
+	nextFiveHeirlooms(event,1);
+});
 
 function onSavePaste(event) {
 	let paste = event.clipboardData.getData("text");
@@ -93,23 +96,19 @@ function findNextHeirloom(zone, rarity){
 	}
 }
 
-function nextFiveHeirlooms(event){
-	let high = parseInt(document.getElementById("highZoneText").value);
-	let rarity = getHeirloomRarityRanges(high).length-1;
+function nextFiveHeirlooms(event, high){
+	
+	let zone = high ? parseInt(document.getElementById("lowZoneText").value) : parseInt(document.getElementById("highZoneText").value);
 	let heirloom;
 	game.global.heirloomSeed = save.global.heirloomSeed;
 	
 	let count = 0;
 	
 	for (let i = 0; i < 5; i++) {
-		for (let j = 0; j < 100; j++) {
-			count++;
-			createHeirloom(high);
-			heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
-			if (heirloom.rarity == rarity){
-				document.getElementById('heirloom'+i).innerText = count + " ahead" + "\n" + heirloomToString(heirloom);
-				break;
-			}
+		createHeirloom(high);
+		heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
+		document.getElementById('heirloom'+i).innerText = count + " ahead" + "\n" + heirloomToString(heirloom);
+
 		}
 	}
 }
