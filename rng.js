@@ -29,14 +29,6 @@ document.getElementById("highNextFiveButton").addEventListener("click", (event) 
 	nextFiveHeirlooms(event,1);
 });
 
-document.getElementByName("low").addEventListener("click", (event) => {
-	setLowUniverse(event);
-});
-
-document.getElementByName("high").addEventListener("click", (event) => {
-	setHighUniverse(event);
-});
-
 function onSavePaste(event) {
 	let paste = event.clipboardData.getData("text");
 	save = JSON.parse(LZString.decompressFromBase64(paste));
