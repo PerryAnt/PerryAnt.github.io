@@ -1,7 +1,7 @@
 var save;
 var game = newGame();
-var lowUniverse;
-var highUniverse;
+var lowUniverse = 1;
+var highUniverse = 1;
 
 // only thing from spire assault that gets used
 var autoBattle = {oneTimers: {Nullicious: {owned: false}}}
@@ -38,9 +38,6 @@ function onSavePaste(event) {
 	document.getElementsByName("low")[0].checked = "checked"
 	document.getElementsByName("high")[0].checked = "checked"
 	
-	setLowUniverse()
-	setHighUniverse()
-	
 	// set seeds
 	game.global.heirloomBoneSeed = save.global.heirloomBoneSeed;
 	game.global.heirloomSeed = save.global.heirloomSeed;
@@ -69,27 +66,19 @@ function onSavePaste(event) {
 	
 }
 
-function setLowUniverse(event){
-	var ele = document.getElementsByName("low");
-        lowUniverse = ele[0].checked ? 1 : 2;
+function setLowUniverse(ele){
+        lowUniverse = parseInt(ele.value)
 	console.log(lowUniverse);
 }
 
-function setHighUniverse(event){
-	var ele = document.getElementsByName("high");
-        highUniverse = ele[0].checked ? 1 : 2;
+function setHighUniverse(ele){
+        highUniverse = parseInt(ele.value)
 	console.log(highUniverse);
 }
 
 function searchForHeirloom(event){
 	let low = parseInt(document.getElementById("lowZoneText").value);
 	let high = parseInt(document.getElementById("highZoneText").value);
-	
-	var ele = document.getElementsByName("low");
-        lowUniverse = ele[0].checked ? 1 : 2;
-	
-	ele = document.getElementsByName("high");
-        highUniverse = ele[0].checked ? 1 : 2;
 	
 	let rarity = getHeirloomRarityRanges(high).length-1;
 	let heirloom;
