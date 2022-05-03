@@ -80,7 +80,10 @@ function searchForHeirloom(event){
 	let low = parseInt(document.getElementById("lowZoneText").value);
 	let high = parseInt(document.getElementById("highZoneText").value);
 	
+	//find max rarity
+	game.global.universe = highUniverse;
 	let rarity = getHeirloomRarityRanges(high).length-1;
+	
 	let heirloom;
 	
 	game.global.heirloomSeed = save.global.heirloomSeed;
