@@ -1,5 +1,7 @@
 var save;
 var game = newGame();
+var lowUniverse;
+var highUniverse;
 
 // only thing from spire assault that gets used
 var autoBattle = {oneTimers: {Nullicious: {owned: false}}}
@@ -38,10 +40,10 @@ function onSavePaste(event) {
 	document.getElementsByName("high")[0].checked = "checked"
 	
 	var ele = document.getElementsByName("low");
-        var lowUniverse = ele[0].checked ? 1 : 2;
+        lowUniverse = ele[0].checked ? 1 : 2;
 	
 	ele = document.getElementsByName("high");
-        var highUniverse = ele[0].checked ? 1 : 2;
+        highUniverse = ele[0].checked ? 1 : 2;
 	
 	//checked="checked"
 	
@@ -79,12 +81,23 @@ function searchForHeirloom(event){
 	let rarity = getHeirloomRarityRanges(high).length-1;
 	let heirloom;
 	
+	game.global.heirloomSeed = save.global.heirloomSeed;
+	
+	game.global.universe = lowUniverse;
+	createHeirloom(low)
+	let tempSeed = game.global.heirloomSeed
+	
 	for (let i = 0; i < 5; i++) {
-		game.global.heirloomSeed = save.global.heirloomSeed;
-		for (let j = 0; j < i; j++) createHeirloom(low);
-		heirloom = findNextHeirloom(high, rarity);
 		
-		document.getElementById('heirloom'+i).innerText = heirloomToString(heirloom);
+		game.global.universe = highUniverse;
+		heirloom = findNextHeirloom(high, rarity);
+		document.getElementById('heirloom'+i).innerText = "Low: " + i " High: " + heirloom.ahead + heirloomToString(heirloom);
+		
+		game.global.heirloomSeed = tempSeed
+		game.global.universe = lowUniverse;
+		createHeirloom(low)
+		tempSeed = game.global.heirloomSeed
+		
 	}
 }
 
@@ -101,6 +114,7 @@ function findNextHeirloom(zone, rarity){
 	for (let i = 0; i < 100; i++) {
 		createHeirloom(zone);
 		heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
+		heirloom.ahead = i+1;
 		if (heirloom.rarity == rarity) {
 			return heirloom;	
 		}
@@ -113,12 +127,14 @@ function nextFiveHeirlooms(event, high){
 	let heirloom;
 	game.global.heirloomSeed = save.global.heirloomSeed;
 	
+	game.global.universe = high ? highUniverse : lowUniverse
+	
 	let count = 0;
 	
 	for (let i = 0; i < 5; i++) {
-		createHeirloom(high);
+		createHeirloom(zone);
 		heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
-		document.getElementById('heirloom'+i).innerText = count + " ahead" + "\n" + heirloomToString(heirloom);
+		document.getElementById('heirloom'+i).innerText = i + " ahead" + "\n" + heirloomToString(heirloom);
 	}
 }
 
