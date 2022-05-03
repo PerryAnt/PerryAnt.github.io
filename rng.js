@@ -29,23 +29,25 @@ document.getElementById("highNextFiveButton").addEventListener("click", (event) 
 	nextFiveHeirlooms(event,1);
 });
 
+document.getElementById("low").addEventListener("click", (event) => {
+	setLowUniverse(event);
+});
+
+document.getElementById("high").addEventListener("click", (event) => {
+	setHighUniverse(event);
+});
+
 function onSavePaste(event) {
 	let paste = event.clipboardData.getData("text");
 	save = JSON.parse(LZString.decompressFromBase64(paste));
-	
 	
 	game.global.universe = save.global.universe
 	
 	document.getElementsByName("low")[0].checked = "checked"
 	document.getElementsByName("high")[0].checked = "checked"
 	
-	var ele = document.getElementsByName("low");
-        lowUniverse = ele[0].checked ? 1 : 2;
-	
-	ele = document.getElementsByName("high");
-        highUniverse = ele[0].checked ? 1 : 2;
-	
-	//checked="checked"
+	setLowUniverse()
+	setHighUniverse()
 	
 	// set seeds
 	game.global.heirloomBoneSeed = save.global.heirloomBoneSeed;
@@ -75,9 +77,28 @@ function onSavePaste(event) {
 	
 }
 
+function setLowUniverse(event){
+	var ele = document.getElementsByName("low");
+        lowUniverse = ele[0].checked ? 1 : 2;
+	console.log(lowUniverse);
+}
+
+function setHighUniverse(event){
+	var ele = document.getElementsByName("high");
+        highUniverse = ele[0].checked ? 1 : 2;
+	console.log(highUniverse);
+}
+
 function searchForHeirloom(event){
 	let low = parseInt(document.getElementById("lowZoneText").value);
 	let high = parseInt(document.getElementById("highZoneText").value);
+	
+	var ele = document.getElementsByName("low");
+        lowUniverse = ele[0].checked ? 1 : 2;
+	
+	ele = document.getElementsByName("high");
+        highUniverse = ele[0].checked ? 1 : 2;
+	
 	let rarity = getHeirloomRarityRanges(high).length-1;
 	let heirloom;
 	
@@ -124,6 +145,16 @@ function findNextHeirloom(zone, rarity){
 function nextFiveHeirlooms(event, high){
 	
 	let zone = high ? parseInt(document.getElementById("lowZoneText").value) : parseInt(document.getElementById("highZoneText").value);
+	if(high){
+		var ele = document.getElementsByName("high");
+        	highUniverse = ele[0].checked ? 1 : 2;
+	}
+	else{
+		var ele = document.getElementsByName("low");
+        	lowUniverse = ele[0].checked ? 1 : 2;
+	}
+	
+	
 	let heirloom;
 	game.global.heirloomSeed = save.global.heirloomSeed;
 	
