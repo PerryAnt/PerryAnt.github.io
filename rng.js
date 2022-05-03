@@ -33,6 +33,16 @@ function onSavePaste(event) {
 	
 	
 	game.global.universe = save.global.universe
+	
+	document.getElementsByName("low")[0].checked = "checked"
+	document.getElementsByName("high")[0].checked = "checked"
+	
+	var ele = document.getElementsByName("low");
+        var lowUniverse = ele[0].checked ? 1 : 2;
+	
+	ele = document.getElementsByName("high");
+        var highUniverse = ele[0].checked ? 1 : 2;
+	
 	//checked="checked"
 	
 	// set seeds
