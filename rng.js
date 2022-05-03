@@ -146,7 +146,11 @@ function nextFiveHeirlooms(event, high){
 	for (let i = 0; i < 5; i++) {
 		createHeirloom(zone);
 		heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
-		document.getElementById('heirloom'+i).innerText = i + " ahead" + "\n" + heirloomToString(heirloom);
+		if (heirloom) document.getElementById('heirloom'+i).innerText = i + " ahead" + "\n" + heirloomToString(heirloom);
+		else {
+			document.getElementById('heirloom'+i).innerText = "Could not find max rarity heirloom looking 100 ahead";
+			return;
+		}
 	}
 }
 
