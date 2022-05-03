@@ -125,7 +125,7 @@ function findNextHeirloom(zone, rarity){
 
 function nextFiveHeirlooms(event, high){
 	
-	let zone = high ? parseInt(document.getElementById("lowZoneText").value) : parseInt(document.getElementById("highZoneText").value);
+	let zone = high ? parseInt(document.getElementById("highZoneText").value) : parseInt(document.getElementById("lowZoneText").value);
 	if(high){
 		var ele = document.getElementsByName("high");
         	highUniverse = ele[0].checked ? 1 : 2;
