@@ -7,12 +7,14 @@
 <p> Test </p>
 <span>  
 	Import save: <input type="text" id="saveInput" title="Paste save here"/><br>
-	Low zone: <input type="text" id="lowZoneText" title="Low zone to advance heirloom rng at."/><br>
-	High zone: <input type="text" id="highZoneText" title="High zone with desired heirloom rarity"/><br>
+	Zone to advance RNG: <input type="text" id="lowZoneText" title="Lower zone to advance heirloom RNG at or where you typically do voids."/>
+	<button type="button" id="lowNextFiveButton" title="Show the heirlooms at this zone.">
+							Next 5 Here</button><br>
+	Zone for max rarity: <input type="text" id="highZoneText" title="Higher zone with desired heirloom rarity"/>
+	<button type="button" id="highNextFiveButton" title="Show the heirlooms at this zone.">
+							Next 5 Here</button><br><br>
 	<button type="button" id="heirloomSearchButton" title="Search for highest rarity heirlooms at high zone after x number of low zone void maps.">
 							Search for heirlooms</button>
-	<button type="button" id="nextFiveButton" title="Search for next 5 highest rarity heirlooms at high zone.">
-							Find Next 5</button>
 </span>
 	
 	<script>
