@@ -29,11 +29,11 @@ document.getElementById("highNextFiveButton").addEventListener("click", (event) 
 	nextFiveHeirlooms(event,1);
 });
 
-document.getElementById("low").addEventListener("click", (event) => {
+document.getElementByName("low").addEventListener("click", (event) => {
 	setLowUniverse(event);
 });
 
-document.getElementById("high").addEventListener("click", (event) => {
+document.getElementByName("high").addEventListener("click", (event) => {
 	setHighUniverse(event);
 });
 
