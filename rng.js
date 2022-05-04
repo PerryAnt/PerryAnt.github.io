@@ -38,6 +38,7 @@ function onSavePaste(event) {
 	save = JSON.parse(LZString.decompressFromBase64(paste));
 	
 	game.global.universe = save.global.universe
+	game.global.lastSpireCleared = save.global.lastSpireCleared
 	
 	document.getElementsByName("low")[0].checked = "checked"
 	document.getElementsByName("high")[0].checked = "checked"
@@ -182,6 +183,28 @@ function nextFiveHeirlooms(event, high){
 		heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
 		document.getElementById('heirloom'+i).innerText = (i + 1) + " ahead" + "\n" + heirloomToString(heirloom);
 	}
+}
+
+function spireHeirloom(spire){
+	let zone
+	switch (spire) {
+		case 1:
+	    		zone = 201;
+	  		break;
+		case 2:
+	 	case 3:
+	 		zone = 400;
+			break;
+		case 4:
+		case 5:
+		case 6:
+		case 7:
+			zone = 100*(spire+1)
+			break;
+	 	 default:
+	    	console.log('Error in spireHeirloom');
+	}
+	createHeirloom(zone)
 }
 
 //createHeirloom calls these but I don't want them to do anything
