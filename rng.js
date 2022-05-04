@@ -91,9 +91,6 @@ function searchForHeirloom(event){
 	let heirloom;
 	
 	game.global.heirloomSeed = save.global.heirloomSeed;
-	
-	game.global.universe = lowUniverse;
-	createHeirloom(low)
 	let tempSeed = game.global.heirloomSeed
 	
 	for (let i = 0; i < 5; i++) {
@@ -183,7 +180,7 @@ function nextFiveHeirlooms(event, high){
 	for (let i = 0; i < 5; i++) {
 		createHeirloom(zone);
 		heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
-		document.getElementById('heirloom'+i).innerText = i + " ahead" + "\n" + heirloomToString(heirloom);
+		document.getElementById('heirloom'+i).innerText = (i + 1) + " ahead" + "\n" + heirloomToString(heirloom);
 	}
 }
 
