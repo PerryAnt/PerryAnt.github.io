@@ -147,9 +147,10 @@ function nextFiveMaxHeirlooms(event){
 	for (let i = 0; i < 5; i++) {
 		heirloom = findNextHeirloom(high, rarity);
 		
-		if (heirloom)
+		if (heirloom){
 			count += heirloom.ahead
 			document.getElementById('heirloom'+i).innerText = count + " ahead" + "\n" + heirloomToString(heirloom);
+		}
 		else {
 			document.getElementById('heirloom'+i).innerText = "Could not find max rarity heirloom looking 100 ahead";
 			return;
