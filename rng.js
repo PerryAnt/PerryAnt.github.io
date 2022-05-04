@@ -135,7 +135,7 @@ function findNextHeirloom(zone, rarity){
 	}
 }
 	
-nextFiveMaxHeirlooms(event){
+function nextFiveMaxHeirlooms(event){
 	let high = parseInt(document.getElementById("highZoneText").value);
 	var ele = document.getElementsByName("high");
         highUniverse = ele[0].checked ? 1 : 2;
