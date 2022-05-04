@@ -27,6 +27,9 @@ document.getElementById("lowNextFiveButton").addEventListener("click", (event) =
 
 document.getElementById("highNextFiveButton").addEventListener("click", (event) => {
 	nextFiveHeirlooms(event,1);
+	
+document.getElementById("highNextFiveMaxButton").addEventListener("click", (event) => {
+	nextFiveMaxHeirlooms(event);	
 });
 
 function onSavePaste(event) {
@@ -130,6 +133,29 @@ function findNextHeirloom(zone, rarity){
 			return heirloom;	
 		}
 	}
+}
+	
+nextFiveMaxHeirlooms(event){
+	let high = parseInt(document.getElementById("highZoneText").value);
+	var ele = document.getElementsByName("high");
+        highUniverse = ele[0].checked ? 1 : 2;
+	game.global.universe = highUniverse;
+	game.global.heirloomSeed = save.global.heirloomSeed;
+	let rarity = getHeirloomRarityRanges(high).length-1;
+	let count = 0;
+	
+	for (let i = 0; i < 5; i++) {
+		heirloom = findNextHeirloom(high, rarity);
+		
+		if (heirloom)
+			count += heirloom.ahead
+			document.getElementById('heirloom'+i).innerText = count + " ahead" + "\n" + heirloomToString(heirloom);
+		else {
+			document.getElementById('heirloom'+i).innerText = "Could not find max rarity heirloom looking 100 ahead";
+			return;
+		}
+	}
+	
 }
 
 function nextFiveHeirlooms(event, high){
