@@ -27,6 +27,7 @@ document.getElementById("lowNextFiveButton").addEventListener("click", (event) =
 
 document.getElementById("highNextFiveButton").addEventListener("click", (event) => {
 	nextFiveHeirlooms(event,1);
+});
 	
 document.getElementById("highNextFiveMaxButton").addEventListener("click", (event) => {
 	nextFiveMaxHeirlooms(event);	
