@@ -2,7 +2,7 @@ var save;
 var game = newGame();
 var lowUniverse = 1;
 var highUniverse = 1;
-var maxSpire = 1;
+var maxSpire = 0;
 
 // only thing from spire assault that gets used
 var autoBattle = {oneTimers: {Nullicious: {owned: false}}}
