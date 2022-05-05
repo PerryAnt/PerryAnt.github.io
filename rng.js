@@ -2,6 +2,7 @@ var save;
 var game = newGame();
 var lowUniverse = 1;
 var highUniverse = 1;
+var maxSpire = 1;
 
 // only thing from spire assault that gets used
 var autoBattle = {oneTimers: {Nullicious: {owned: false}}}
@@ -81,6 +82,10 @@ function setHighUniverse(ele){
 	console.log(highUniverse);
 }
 
+function setMaxSpire(value){
+	maxSpire = value;
+}
+
 function searchForHeirloom(event){
 	let low = parseInt(document.getElementById("lowZoneText").value);
 	let high = parseInt(document.getElementById("highZoneText").value);
@@ -95,7 +100,7 @@ function searchForHeirloom(event){
 	
 	
 	if (lowUniverse == 1){
-		for (let j = game.global.lastSpireCleared + 1; 100*(j+1) < low; j++) spireHeirloom(j)
+		for (let j = game.global.lastSpireCleared + 1; 100*(j+1) < low && j <= maxSpire; j++) spireHeirloom(j)
 	}
 	
 	let tempSeed = game.global.heirloomSeed
@@ -103,7 +108,7 @@ function searchForHeirloom(event){
 	
 	for (let i = 0; i < 5; i++) {
 		if (highUniverse == 1){
-			for (let j = Math.floor(low/100); 100*(j+1) < high; j++) spireHeirloom(j)
+			for (let j = Math.floor(low/100); 100*(j+1) < high && j <= maxSpire; j++) spireHeirloom(j)
 		}
 		game.global.universe = highUniverse;
 		heirloom = findNextHeirloom(high, rarity);
@@ -152,7 +157,7 @@ function nextFiveMaxHeirlooms(event){
 	let rarity = getHeirloomRarityRanges(high).length-1;
 	
 	if (game.global.universe == 1){
-		for (let j = game.global.lastSpireCleared + 1; 100*(j+1) < zone; j++) spireHeirloom(j)
+		for (let j = game.global.lastSpireCleared + 1; 100*(j+1) < zone && j <= maxSpire; j++) spireHeirloom(j)
 	}
 	
 	
@@ -221,10 +226,12 @@ function spireHeirloom(spire){
 		case 7:
 			zone = 100*(spire+1)
 			break;
-	 	 default:
+	 	default:
 	    	console.log('Error in spireHeirloom');
 	}
 	createHeirloom(zone)
+	let heirloom = game.global.heirloomsExtra[game.global.heirloomsExtra.length-1];
+	console.log(spire, zone, heirloom)
 }
 
 //createHeirloom calls these but I don't want them to do anything
