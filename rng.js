@@ -157,7 +157,7 @@ function nextFiveMaxHeirlooms(event){
 	let rarity = getHeirloomRarityRanges(high).length-1;
 	
 	if (game.global.universe == 1){
-		for (let j = game.global.lastSpireCleared + 1; 100*(j+1) < zone && j <= maxSpire; j++) spireHeirloom(j)
+		for (let j = game.global.lastSpireCleared + 1; 100*(j+1) < high && j <= maxSpire; j++) spireHeirloom(j)
 	}
 	
 	
