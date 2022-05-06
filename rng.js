@@ -196,7 +196,7 @@ function nextFiveHeirlooms(event, high){
 	game.global.universe = high ? highUniverse : lowUniverse
 	
 	if (game.global.universe == 1){
-		for (let j = game.global.lastSpireCleared + 1; 100*(j+1) < zone; j++) spireHeirloom(j)
+		for (let j = game.global.lastSpireCleared + 1; 100*(j+1) < zone && j <= maxSpire; j++) spireHeirloom(j)
 	}
 	
 	let count = 0;
