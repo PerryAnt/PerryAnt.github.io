@@ -3,10 +3,10 @@ function clamp(x, lower, upper){
 }
 
 let ball = {
-    x_pos: 30,
-    y_pos: HEIGHT - 50,
-    x_vel: 1,
-    y_vel: 1,
+    x_pos: 0,
+    y_pos: 0,
+    x_vel: 0,
+    y_vel: -1,
     radius: 10,
 
     draw: function() {
@@ -16,6 +16,12 @@ let ball = {
     },
 
     update: function() {
+        if(!game.started){
+            this.x_pos = player.x_pos + player.width/2;
+            this.y_pos = player.y_pos - 20;
+            return;
+        }
+
         //vertical wall collision
         if(this.x_pos - this.radius < 0 || this.x_pos + this.radius > WIDTH){
             this.x_vel *= -1;
@@ -28,7 +34,13 @@ let ball = {
 
         //player collision
         if(this.y_pos + this.radius > player.y_pos && this.x_pos > player.x_pos && this.x_pos < player.x_pos + player.width){
-            this.y_vel = -1;
+
+            let d = this.x_pos - player.x_pos - player.width/2;
+            //sends ball in direction based on how far from the center of the player rectangle it hits
+            //9/10 factor prevents the y-velocity from being zero 
+            this.x_vel = Math.sin(d / player.width * Math.PI * 9/10)
+            this.y_vel = -Math.sqrt(1 - this.x_vel**2)
+
         }
 
         this.x_pos += this.x_vel;
@@ -147,7 +159,7 @@ let board = {
 
 let game = {
     level: 1,
-
+    started: false,
     objects: [ball, player, board],
     
     draw: function(){
