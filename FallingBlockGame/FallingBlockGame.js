@@ -6,16 +6,19 @@ let block_width =  20;
 let block_height = 20;
 
 let pieces = [
-            [0, 0, 0, 1,
-             0, 0, 0, 1,
-             0, 0, 0, 1,
-             0, 0, 0, 1]
-]
+                [0, 0, 0, 1,
+                 0, 0, 0, 1,
+                 0, 0, 0, 1,
+                 0, 0, 0, 1]
+    ]
 
 let player = {
     x_pos: 0,
     y_pos: 0,
+    x_dim: 4,
+    y_dim: 4,
     piece: [],
+    timeSinceLastDownMove: 0,
 
     setup: function(){
         this.newPiece();
@@ -25,18 +28,22 @@ let player = {
     draw: function() {
             for(let i = 0; i < this.x_dim; i++){
                 for(let j = 0; j < this.y_dim; j++){
-                    if(this.piece[this.x_dim * j + i] ){
+                    if(this.piece[i + j * this.x_dim]){
                         fill(255);
                         stroke(0);
-                        rect( (x_pos + i) * block_width, (this.y_pos + j) * block_height, block_width, block_height);
+                        rect( (this.x_pos + i) * block_width, (this.y_pos + j) * block_height, block_width, block_height);
                     }
                 }
             }
     },
 
     update: function() {
+        this.timeSinceLastDownMove++
 
-        
+        if(this.timeSinceLastDownMove > 60){
+            this.timeSinceLastDownMove = 0;
+            this.move(0, 1);
+        }
     },
 
     onStateChange: function(){
@@ -50,9 +57,55 @@ let player = {
         }
     },
 
+    move: function(x_move, y_move){
+        let true_x_pos = 0;
+        let true_y_pos = 0;
+
+        for(let i = 0; i < this.x_dim; i++){
+            for(let j = 0; j < this.y_dim; j++){
+                if(this.piece[i + j * this.x_dim] ){
+                    true_x_pos = this.x_pos + i + x_move;
+                    true_y_pos = this.y_pos + j + y_move;
+
+                    if(true_x_pos < 0
+                        || true_x_pos >= board.x_dim){
+                        return;
+                    }
+
+                    if(board.blocks[true_x_pos + true_y_pos * board.x_dim]
+                        || true_y_pos >= board.y_dim){
+                        this.setPiece()
+                        return;
+                    }
+                }
+            }
+        }
+
+        this.x_pos += x_move;
+        this.y_pos += y_move;
+    },
+
     newPiece: function(){
         let index = Math.floor(Math.random() * pieces.length)
         this.piece = [...pieces[index]];
+        this.x_pos = 0;
+        this.y_pos = 0;
+    },
+
+    setPiece: function(){
+        for(let i = 0; i < this.x_dim; i++){
+            for(let j = 0; j < this.y_dim; j++){
+                true_x_pos = this.x_pos + i;
+                true_y_pos = this.y_pos + j;
+
+                if(this.piece[i + j * this.x_dim]){
+                    board.blocks[true_x_pos + true_y_pos * board.x_dim] = 1;
+                }
+                
+            }
+        }
+
+        this.newPiece();
     }
 }
 
@@ -69,7 +122,7 @@ let board = {
     draw: function(){
         for(let i = 0; i < this.x_dim; i++){
             for(let j = 0; j < this.y_dim; j++){
-                if(this.blocks[this.x_dim * j + i] ){
+                if(this.blocks[i + j * this.x_dim] ){
                     fill(255);
                     stroke(0);
                     rect(i * block_width, j * block_height, block_width, block_height);
@@ -95,7 +148,7 @@ let board = {
     newBoard(){
         for(let i = 0; i < this.x_dim; i++){
             for(let j = 0; j < this.y_dim; j++){
-                this.blocks[this.x_dim * j + i] = 0;
+                this.blocks[i + j * this.x_dim] = 0;
             }
         }
     },
@@ -172,10 +225,12 @@ let game = {
 
     keyPressed: function(){
         if (keyCode === LEFT_ARROW) {
+            player.move(-1, 0);
             return;
         } 
 
         if (keyCode === RIGHT_ARROW) {
+            player.move( 1, 0);
             return;
         } 
     },
