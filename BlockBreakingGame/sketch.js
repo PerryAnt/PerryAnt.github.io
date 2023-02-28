@@ -5,7 +5,10 @@ let HEIGHT = 400
 
 function setup() {
     createCanvas(WIDTH, HEIGHT);
-    board.newBoard();
+    textAlign(CENTER);
+    textSize(32);
+
+    game.setup();
 }
   
   function draw() {
@@ -16,7 +19,9 @@ function setup() {
 }
 
 function keyPressed() {
-    if (keyCode === UP_ARROW) {
-        game.started = true;
-    } 
+    game.keyPressed(keyCode);
+}
+
+function keyReleased() {
+    game.keyReleased(keyCode);
 }
