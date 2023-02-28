@@ -1,7 +1,20 @@
+// [0, 0, 0, 0,
+//     0, 0, 0, 0,
+//     0, 0, 0, 0,
+//     0, 0, 0, 0],
+
+
+
+let pieces = [
+            [0, 0, 0, 1,
+             0, 0, 0, 1,
+             0, 0, 0, 1,
+             0, 0, 0, 1]
+]
+
 let player = {
-    x_pos: 30,
-    y_pos: HEIGHT - 50,
-    x_vel: 0,
+    x_pos: 0,
+    y_pos: 0,
     width: 60,
     height: 10,
 
@@ -27,6 +40,11 @@ let player = {
                 break;
         }
     },
+
+    newPiece: function(){
+        let index = Math.floor(Math.random() * pieces.length)
+        this.piece = [...pieces[index]];
+    }
 }
 
 class Block {
@@ -51,13 +69,29 @@ class Block {
 
 let board = {
     blocks: [],
+    x_dim: 10,
+    y_dim: 20,
+    block_width: 20,
+    block_height: 20,
 
     setup: function(){
-
+        this.blocks = new Array(this.x_dim * this.y_dim);
+        this.newBoard();
     },
 
     draw: function(){
+        for(let i = 0; i < this.x_dim; i++){
+            for(let j = 0; j < this.y_dim; j++){
+                if(this.blocks[this.x_dim * j + i] ){
+                    fill(255);
+                    stroke(0);
+                    rect(i * this.block_width, j * this.block_height, this.block_width, this.block_height);
+                }
+            }
+        }
 
+
+        
     },
 
     update: function(){
@@ -75,7 +109,11 @@ let board = {
     },
 
     newBoard(){
-
+        for(let i = 0; i < this.x_dim; i++){
+            for(let j = 0; j < this.y_dim; j++){
+                this.blocks[this.x_dim * j + i] = 0;
+            }
+        }
     },
 }
 
@@ -89,7 +127,7 @@ let gameText = {
 
     draw: function(){
         fill(0);
-        text(this.text, WIDTH/2, 3/4*HEIGHT);
+        text(this.text, WIDTH/2, HEIGHT/4);
     },
 
     update: function(){
