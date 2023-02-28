@@ -274,7 +274,6 @@ let game = {
             return;
         }
 
-        //update individual objects
         for(x of this.objects){
             x.update();
         }
@@ -282,7 +281,6 @@ let game = {
     },
 
     onStateChange: function(){
-        //update individual objects
         for(x of this.objects){
             x.onStateChange();
         }
