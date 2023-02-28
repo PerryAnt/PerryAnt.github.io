@@ -38,12 +38,7 @@ let player = {
     },
 
     update: function() {
-        this.timeSinceLastDownMove++
 
-        if(this.timeSinceLastDownMove > 60){
-            this.timeSinceLastDownMove = 0;
-            this.move(0, 1);
-        }
     },
 
     onStateChange: function(){
@@ -58,29 +53,6 @@ let player = {
     },
 
     move: function(x_move, y_move){
-        let true_x_pos = 0;
-        let true_y_pos = 0;
-
-        for(let i = 0; i < this.x_dim; i++){
-            for(let j = 0; j < this.y_dim; j++){
-                if(this.piece[i + j * this.x_dim] ){
-                    true_x_pos = this.x_pos + i + x_move;
-                    true_y_pos = this.y_pos + j + y_move;
-
-                    if(true_x_pos < 0
-                        || true_x_pos >= board.x_dim){
-                        return;
-                    }
-
-                    if(board.blocks[true_x_pos + true_y_pos * board.x_dim]
-                        || true_y_pos >= board.y_dim){
-                        this.setPiece()
-                        return;
-                    }
-                }
-            }
-        }
-
         this.x_pos += x_move;
         this.y_pos += y_move;
     },
@@ -91,22 +63,6 @@ let player = {
         this.x_pos = 0;
         this.y_pos = 0;
     },
-
-    setPiece: function(){
-        for(let i = 0; i < this.x_dim; i++){
-            for(let j = 0; j < this.y_dim; j++){
-                true_x_pos = this.x_pos + i;
-                true_y_pos = this.y_pos + j;
-
-                if(this.piece[i + j * this.x_dim]){
-                    board.blocks[true_x_pos + true_y_pos * board.x_dim] = 1;
-                }
-                
-            }
-        }
-
-        this.newPiece();
-    }
 }
 
 let board = {
@@ -152,6 +108,20 @@ let board = {
             }
         }
     },
+
+    setPiece: function(x_pos, y_pos, piece){
+        for(let i = 0; i < player.x_dim; i++){
+            for(let j = 0; j < player.y_dim; j++){
+                true_x_pos = x_pos + i;
+                true_y_pos = y_pos + j;
+
+                if(piece[i + j * player.x_dim]){
+                    this.blocks[true_x_pos + true_y_pos * this.x_dim] = 1;
+                }
+                
+            }
+        }
+    }
 }
 
 let gameText = {
@@ -188,6 +158,7 @@ let gameText = {
 let game = {
     state: "started", // "started" "lost" 
     objects: [player, board, gameText],
+    timeSinceLastDownMove: 0,
 
     setup: function(){
         for(x of this.objects){
@@ -211,9 +182,47 @@ let game = {
             return;
         }
 
+        this.timeSinceLastDownMove++
+
+        if(this.timeSinceLastDownMove > 60){
+            this.timeSinceLastDownMove = 0;
+            this.movePlayer(0, 1);
+        }
+
         for(x of this.objects){
             x.update();
         }
+
+    },
+
+    movePlayer: function(x_move, y_move){
+        let true_x_pos = 0;
+        let true_y_pos = 0;
+
+        //check for collisions
+        for(let i = 0; i < player.x_dim; i++){
+            for(let j = 0; j < player.y_dim; j++){
+                if(player.piece[i + j * player.x_dim] ){
+                    true_x_pos = player.x_pos + i + x_move;
+                    true_y_pos = player.y_pos + j + y_move;
+
+                    if(true_x_pos < 0
+                        || true_x_pos >= board.x_dim){
+                        return;
+                    }
+
+                    //player piece hits blocks already on board
+                    if(board.blocks[true_x_pos + true_y_pos * board.x_dim]
+                        || true_y_pos >= board.y_dim){
+                        board.setPiece(player.x_pos, player.y_pos, player.piece);
+                        player.newPiece();
+                        return;
+                    }
+                }
+            }
+        }
+
+        player.move(x_move, y_move);
 
     },
 
@@ -225,12 +234,12 @@ let game = {
 
     keyPressed: function(){
         if (keyCode === LEFT_ARROW) {
-            player.move(-1, 0);
+            this.movePlayer(-1, 0);
             return;
         } 
 
         if (keyCode === RIGHT_ARROW) {
-            player.move( 1, 0);
+            this.movePlayer( 1, 0);
             return;
         } 
     },
