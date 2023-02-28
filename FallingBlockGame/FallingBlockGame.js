@@ -15,6 +15,7 @@ let pieces = [
 let player = {
     x_pos: 0,
     y_pos: 0,
+    piece: [],
 
     setup: function(){
         this.newPiece();
@@ -24,7 +25,7 @@ let player = {
     draw: function() {
             for(let i = 0; i < this.x_dim; i++){
                 for(let j = 0; j < this.y_dim; j++){
-                    if(this.blocks[this.x_dim * j + i] ){
+                    if(this.piece[this.x_dim * j + i] ){
                         fill(255);
                         stroke(0);
                         rect( (x_pos + i) * block_width, (this.y_pos + j) * block_height, block_width, block_height);
