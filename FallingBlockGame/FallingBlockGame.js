@@ -2,8 +2,8 @@
 //     0, 0, 0, 0,
 //     0, 0, 0, 0,
 //     0, 0, 0, 0],
-
-
+let block_width =  20;
+let block_height = 20;
 
 let pieces = [
             [0, 0, 0, 1,
@@ -15,14 +15,22 @@ let pieces = [
 let player = {
     x_pos: 0,
     y_pos: 0,
-    width: 60,
-    height: 10,
 
     setup: function(){
+        this.newPiece();
         return;
     },
 
     draw: function() {
+            for(let i = 0; i < this.x_dim; i++){
+                for(let j = 0; j < this.y_dim; j++){
+                    if(this.blocks[this.x_dim * j + i] ){
+                        fill(255);
+                        stroke(0);
+                        rect( (x_pos + i) * block_width, (this.y_pos + j) * block_height, block_width, block_height);
+                    }
+                }
+            }
     },
 
     update: function() {
@@ -47,32 +55,10 @@ let player = {
     }
 }
 
-class Block {
-    constructor(x_pos, y_pos, width, height, color) {
-        this.x_pos = x_pos;
-        this.y_pos = y_pos;
-        this.width = width;
-        this.height = height;
-        this.color = color;
-    }
-
-    draw(){
-        fill(this.color);
-        stroke(0);
-        rect(this.x_pos, this.y_pos, this.width, this.height);
-    }
-
-    update(){
-        return;
-    }
-}
-
 let board = {
     blocks: [],
     x_dim: 10,
     y_dim: 20,
-    block_width: 20,
-    block_height: 20,
 
     setup: function(){
         this.blocks = new Array(this.x_dim * this.y_dim);
@@ -85,13 +71,10 @@ let board = {
                 if(this.blocks[this.x_dim * j + i] ){
                     fill(255);
                     stroke(0);
-                    rect(i * this.block_width, j * this.block_height, this.block_width, this.block_height);
+                    rect(i * block_width, j * block_height, block_width, block_height);
                 }
             }
         }
-
-
-        
     },
 
     update: function(){
