@@ -63,6 +63,28 @@ let player = {
         this.x_pos = 0;
         this.y_pos = 0;
     },
+
+    getRotatedPieceClockwise: function(){
+        newPiece = new Array(this.x_dim * this.y_dim);
+    
+        for(let i = 0; i < this.x_dim; i++){
+            for(let j = 0; j < this.y_dim; j++){
+                newPiece[i + j * this.x_dim] = this.piece[12 + j - 4 * i]
+            }
+        }
+        return newPiece;
+    },
+
+    getRotatedPieceCounterClockwise: function(){
+        newPiece = new Array(this.x_dim * this.y_dim);
+    
+        for(let i = 0; i < this.x_dim; i++){
+            for(let j = 0; j < this.y_dim; j++){
+                newPiece[i + j * this.x_dim] = this.piece[3 - j + 4 * i]
+            }
+        }
+        return newPiece;
+    },
 }
 
 let board = {
@@ -109,6 +131,33 @@ let board = {
         }
     },
 
+    checkForCollsionWithPlayer(x_pos, y_pos, piece)
+    {
+         //check for collisions
+         for(let i = 0; i < player.x_dim; i++){
+            for(let j = 0; j < player.y_dim; j++){
+                if(piece[i + j * player.x_dim] ){
+                    true_x_pos = x_pos + i;
+                    true_y_pos = y_pos + j;
+
+                    //pieces hits sides
+                    if(true_x_pos < 0
+                        || true_x_pos >= board.x_dim){
+                        return 2;
+                    }
+
+                    //player piece hits blocks already on board or bottom
+                    if(board.blocks[true_x_pos + true_y_pos * board.x_dim]
+                        || true_y_pos >= board.y_dim){
+                        return 1;
+                    }
+                }
+            }
+        }
+
+        return 0;
+    },
+
     setPiece: function(x_pos, y_pos, piece){
         for(let i = 0; i < player.x_dim; i++){
             for(let j = 0; j < player.y_dim; j++){
@@ -118,7 +167,6 @@ let board = {
                 if(piece[i + j * player.x_dim]){
                     this.blocks[true_x_pos + true_y_pos * this.x_dim] = 1;
                 }
-                
             }
         }
     }
@@ -196,35 +244,85 @@ let game = {
     },
 
     movePlayer: function(x_move, y_move){
+        let x_pos = player.x_pos + x_move;
+        let y_pos = player.y_pos + y_move;
+
+        //check for collisions
+        let collision = board.checkForCollsionWithPlayer(x_pos, y_pos, player.piece)
+
+        if(collision == 1)
+        {
+            board.setPiece(player.x_pos, player.y_pos, player.piece);
+            player.newPiece();
+            return;
+        }
+
+        if(collision == 0)
+        {
+            player.move(x_move, y_move);
+        }
+
+        // for(let i = 0; i < player.x_dim; i++){
+        //     for(let j = 0; j < player.y_dim; j++){
+        //         if(player.piece[i + j * player.x_dim] ){
+        //             true_x_pos = player.x_pos + i + x_move;
+        //             true_y_pos = player.y_pos + j + y_move;
+
+        //             //pieces hits sides
+        //             if(true_x_pos < 0
+        //                 || true_x_pos >= board.x_dim){
+        //                 return;
+        //             }
+
+        //             //player piece hits blocks already on board or bottom
+        //             if(board.blocks[true_x_pos + true_y_pos * board.x_dim]
+        //                 || true_y_pos >= board.y_dim){
+                        
+        //                 return;
+        //             }
+        //         }
+        //     }
+        // }
+
+    },
+
+    rotatePlayer: function(direction){
+        let newPiece ={};
+
+        if(direction){
+            newPiece = player.getRotatedPieceClockwise();
+        } 
+        else{
+            newPiece = player.getRotatedPieceCounterClockwise();
+        }
+
         let true_x_pos = 0;
         let true_y_pos = 0;
 
         //check for collisions
         for(let i = 0; i < player.x_dim; i++){
             for(let j = 0; j < player.y_dim; j++){
-                if(player.piece[i + j * player.x_dim] ){
-                    true_x_pos = player.x_pos + i + x_move;
-                    true_y_pos = player.y_pos + j + y_move;
+                if(newPiece[i + j * player.x_dim] ){
+                    true_x_pos = player.x_pos + i;
+                    true_y_pos = player.y_pos + j;
 
+                    //pieces hits sides
                     if(true_x_pos < 0
                         || true_x_pos >= board.x_dim){
                         return;
                     }
 
-                    //player piece hits blocks already on board
+                    //player piece hits blocks already on board or bottom
                     if(board.blocks[true_x_pos + true_y_pos * board.x_dim]
                         || true_y_pos >= board.y_dim){
-                        board.setPiece(player.x_pos, player.y_pos, player.piece);
-                        player.newPiece();
                         return;
                     }
                 }
             }
         }
 
-        player.move(x_move, y_move);
-
-    },
+        player.piece = newPiece; 
+    },   
 
     onStateChange: function(){
         for(x of this.objects){
@@ -240,6 +338,16 @@ let game = {
 
         if (keyCode === RIGHT_ARROW) {
             this.movePlayer( 1, 0);
+            return;
+        } 
+
+        if (keyCode === UP_ARROW) {
+            this.rotatePlayer(1)
+            return;
+        }
+
+        if (keyCode === DOWN_ARROW) {
+            this.rotatePlayer(0)
             return;
         } 
     },
