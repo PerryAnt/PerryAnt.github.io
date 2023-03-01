@@ -250,7 +250,7 @@ let game = {
         //check for collisions
         let collision = board.checkForCollsionWithPlayer(x_pos, y_pos, player.piece)
 
-        if(collision == 1)
+        if(collision == 1 && y_move)
         {
             board.setPiece(player.x_pos, player.y_pos, player.piece);
             player.newPiece();
