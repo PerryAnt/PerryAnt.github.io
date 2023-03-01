@@ -262,28 +262,6 @@ let game = {
             player.move(x_move, y_move);
         }
 
-        // for(let i = 0; i < player.x_dim; i++){
-        //     for(let j = 0; j < player.y_dim; j++){
-        //         if(player.piece[i + j * player.x_dim] ){
-        //             true_x_pos = player.x_pos + i + x_move;
-        //             true_y_pos = player.y_pos + j + y_move;
-
-        //             //pieces hits sides
-        //             if(true_x_pos < 0
-        //                 || true_x_pos >= board.x_dim){
-        //                 return;
-        //             }
-
-        //             //player piece hits blocks already on board or bottom
-        //             if(board.blocks[true_x_pos + true_y_pos * board.x_dim]
-        //                 || true_y_pos >= board.y_dim){
-                        
-        //                 return;
-        //             }
-        //         }
-        //     }
-        // }
-
     },
 
     rotatePlayer: function(direction){
@@ -296,32 +274,12 @@ let game = {
             newPiece = player.getRotatedPieceCounterClockwise();
         }
 
-        let true_x_pos = 0;
-        let true_y_pos = 0;
+        let collision = board.checkForCollsionWithPlayer(player.x_pos, player.y_pos, newPiece)
 
-        //check for collisions
-        for(let i = 0; i < player.x_dim; i++){
-            for(let j = 0; j < player.y_dim; j++){
-                if(newPiece[i + j * player.x_dim] ){
-                    true_x_pos = player.x_pos + i;
-                    true_y_pos = player.y_pos + j;
-
-                    //pieces hits sides
-                    if(true_x_pos < 0
-                        || true_x_pos >= board.x_dim){
-                        return;
-                    }
-
-                    //player piece hits blocks already on board or bottom
-                    if(board.blocks[true_x_pos + true_y_pos * board.x_dim]
-                        || true_y_pos >= board.y_dim){
-                        return;
-                    }
-                }
-            }
+        if(!collision){
+            player.piece = newPiece; 
         }
-
-        player.piece = newPiece; 
+        
     },   
 
     onStateChange: function(){
