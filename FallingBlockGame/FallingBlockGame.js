@@ -82,6 +82,7 @@ let player = {
         switch(game.state){
                 
             case "started":
+                this.newPiece();
                 break;
 
             case "lost":
@@ -153,6 +154,7 @@ let board = {
     onStateChange: function(){
         switch(game.state){
             case "started":
+                this.newBoard();
                 break;
 
             case "lost":
@@ -193,6 +195,34 @@ let board = {
         }
 
         return 0;
+    },
+
+    clearLines: function(){
+        let row = [];
+
+        //check for full rows starting from top of screen
+        for(let j = 0; j < this.y_dim; j++){
+            row = this.blocks.slice(j * this.x_dim, j * this.x_dim + this.x_dim)
+            if(row.every((element) =>  element))
+            {
+                this.shiftRowsDown(j);
+            }
+        }
+    },
+
+    shiftRowsDown: function(row_number){
+        //shift rows down, starting from row_number
+        for(let j = row_number; j > 0 ; j--){
+            for(let i = 0; i < this.x_dim; i++){
+                this.blocks[i + j * this.x_dim] = this.blocks[i + (j-1) * this.x_dim];
+            }
+        }
+
+        //set top row to zeroes
+        j = 0;
+        for(let i = 0; i < this.x_dim; i++){
+            this.blocks[i + j * this.x_dim] = 0;
+        }
     },
 
     setPiece: function(x_pos, y_pos, piece){
@@ -290,7 +320,8 @@ let game = {
         if(collision == 1 && y_move)
         {
             board.setPiece(player.x_pos, player.y_pos, player.piece);
-            player.newPiece();
+            board.clearLines();
+            this.newPiece();
             return;
         }
 
@@ -299,6 +330,33 @@ let game = {
             player.move(x_move, y_move);
         }
 
+    },
+
+    newPiece: function(){
+        player.newPiece();
+        //check if new piece overlaps any board pieces immediately
+        if(board.checkForCollsionWithPlayer(player.x_pos, player.y_pos, player.piece)){
+            this.state = "lost"
+            this.onStateChange();
+        }
+    },
+
+    forcePlayerDown: function(){
+        let x_pos = player.x_pos;
+        let y_pos = player.y_pos;
+
+        for(let j = 0; j < board.y_dim; j++){
+            y_pos = player.y_pos + j;
+
+            //check for collisions
+            let collision = board.checkForCollsionWithPlayer(x_pos, y_pos, player.piece)
+            if(collision){
+                board.setPiece(x_pos, y_pos-1, player.piece);
+                board.clearLines();
+                this.newPiece();
+            return;
+            }
+        }
     },
 
     rotatePlayer: function(direction){
@@ -343,6 +401,21 @@ let game = {
 
         if (keyCode === DOWN_ARROW) {
             this.rotatePlayer(0)
+            return;
+        } 
+
+        if (keyCode === 32) {
+            switch(game.state){
+                case "started":
+                    this.forcePlayerDown();
+                    this.timeSinceLastDownMove = 0;
+                    break;
+    
+                case "lost":
+                    this.state = "started"
+                    this.onStateChange();
+                    break;
+            }
             return;
         } 
     },
