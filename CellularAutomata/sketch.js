@@ -59,17 +59,14 @@ function coordinatesToIndex(x, y) {
 
 function mouseClicked() {
   const [i, j] = coordinatesToIndex(mouseX, mouseY)
-  currentCells[i][j] = 1 - currentCells[i][j]
-  redraw()
-  // prevent default
-  return false
+  if (i >= 0 && i < size && j >= 0 && j < size) {
+    currentCells[i][j] = 1 - currentCells[i][j]
+    redraw()
+  }
 }
 
 function keyPressed() {
   if (key == " ") {
     updateCells()
   }
-
-  // prevent default
-  return false
 }
