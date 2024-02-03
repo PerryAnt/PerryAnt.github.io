@@ -15,7 +15,8 @@ let y_slope = HEIGHT / (yEnd - yStart)
 let y_intercept = -y_slope * yStart
 
 function setup() {
-  createCanvas(WIDTH, HEIGHT)
+  var canvas = createCanvas(WIDTH, HEIGHT)
+  canvas.parent("sketch-holder")
 }
 
 function draw() {

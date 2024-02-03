@@ -1,0 +1,16 @@
+.flex {
+        display:flex;
+        text-align: center;
+}
+
+.container {
+    margin: 0 25vw;
+    display: flex;
+    place-items: center;
+    min-height: 50vh;
+}
+
+.vertical {
+    display: flex;
+    flex-direction: column;
+}

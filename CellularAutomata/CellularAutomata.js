@@ -12,9 +12,31 @@ let rules = Array(2)
   .fill(null)
   .map(() => Array(9).fill(0))
 
-rules[0][3] = 1
-rules[1][2] = 1
-rules[1][3] = 1
+function createCheckboxes(state) {
+  var element = document.getElementById("checkboxes" + state)
+  let div
+  let label
+  let checkbox
+  for (let i = 0; i < 9; i++) {
+    div = document.createElement("div")
+    label = document.createElement("label")
+    label.className = "vertical"
+    label.innerHTML = i
+    checkbox = document.createElement("input")
+    checkbox.type = "checkbox"
+    checkbox.id = state + "box" + i
+    checkbox.addEventListener("click", (e) => {
+      rules[state][i] = e.target.checked ? 1 : 0
+      e.target.blur()
+    })
+    label.appendChild(checkbox)
+    div.appendChild(label)
+    element.appendChild(div)
+  }
+}
+
+createCheckboxes(0)
+createCheckboxes(1)
 
 function mod(a, b) {
   let r = a % b
