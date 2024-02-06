@@ -1,4 +1,4 @@
-const size = 10
+let size = 16
 
 let currentCells = Array(size)
   .fill(null)
@@ -11,6 +11,41 @@ let count = Array(size)
 let rules = Array(2)
   .fill(null)
   .map(() => Array(9).fill(0))
+
+function changeGridSize(newSize) {
+  xStart = 0
+  xEnd = newSize
+  yStart = 0
+  yEnd = newSize
+
+  x_slope = WIDTH / (xEnd - xStart)
+  x_intercept = -x_slope * xStart
+  y_slope = HEIGHT / (yEnd - yStart)
+  y_intercept = -y_slope * yStart
+
+  if (size < newSize) {
+    //increase size of existing rows
+    currentCells = currentCells.map((row) => [
+      ...row,
+      ...Array(newSize - size).fill(0),
+    ])
+    //increase number of rows and fill new rows with empty arrays
+    currentCells = [
+      ...currentCells,
+      ...Array(newSize - size)
+        .fill(null)
+        .map(() => Array(newSize).fill(0)),
+    ]
+  } else {
+    //remove excess rows
+    currentCells = currentCells.slice(0, newSize)
+    //remove excess columns
+    currentCells = currentCells.map((row) => row.slice(0, newSize))
+  }
+
+  size = newSize
+  redraw()
+}
 
 function createCheckboxes(state) {
   var element = document.getElementById("checkboxes" + state)
@@ -37,6 +72,20 @@ function createCheckboxes(state) {
 
 createCheckboxes(0)
 createCheckboxes(1)
+
+var gridSizeSelector = document.getElementById("grid-size")
+gridSizeSelector.addEventListener("change", (e) => {
+  changeGridSize(parseInt(e.target.value))
+  e.target.blur()
+})
+
+let option
+for (let i = 4; i < 8; i++) {
+  option = document.createElement("option")
+  option.value = Math.pow(2, i)
+  option.innerHTML = Math.pow(2, i)
+  gridSizeSelector.appendChild(option)
+}
 
 function mod(a, b) {
   let r = a % b

@@ -4,9 +4,9 @@ let HEIGHT = 800
 
 // visible cells
 let xStart = 0
-let xEnd = 10
+let xEnd = 16
 let yStart = 0
-let yEnd = 10
+let yEnd = 16
 
 // used in formulas for converting between cell indices and canvas coordinates
 let x_slope = WIDTH / (xEnd - xStart)
