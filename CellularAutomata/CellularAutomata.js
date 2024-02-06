@@ -43,6 +43,10 @@ function changeGridSize(newSize) {
     currentCells = currentCells.map((row) => row.slice(0, newSize))
   }
 
+  count = Array(newSize)
+    .fill(null)
+    .map(() => Array(newSize).fill(0))
+
   size = newSize
   redraw()
 }
