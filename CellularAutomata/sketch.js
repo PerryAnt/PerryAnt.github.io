@@ -4,9 +4,9 @@ let HEIGHT = 800
 
 // visible cells
 let xStart = 0
-let xEnd = 16
+let xEnd = 8
 let yStart = 0
-let yEnd = 16
+let yEnd = 8
 
 // used in formulas for converting between cell indices and canvas coordinates
 let x_slope = WIDTH / (xEnd - xStart)
@@ -34,8 +34,8 @@ function draw() {
   }
 
   fill(255)
-  for (let i = xStart; i < xEnd; i++) {
-    for (let j = yStart; j < yEnd; j++) {
+  for (let i = Math.floor(xStart); i < xEnd; i++) {
+    for (let j = Math.floor(yStart); j < yEnd; j++) {
       if (currentCells[i][j]) {
         const [x, y] = indexToCoordinates(i, j)
         rect(x, y, xSize, ySize)
@@ -59,6 +59,7 @@ function coordinatesToIndex(x, y) {
 }
 
 function mouseClicked() {
+  if (mouseX > WIDTH || mouseY > HEIGHT) return
   const [i, j] = coordinatesToIndex(mouseX, mouseY)
   if (i >= 0 && i < size && j >= 0 && j < size) {
     currentCells[i][j] = 1 - currentCells[i][j]
